@@ -28,7 +28,7 @@ export const AsyncBoundary = forwardRef<any, AsyncBoundaryProps>(
           setShowPendingFallback(true);
         }, delay);
 
-        return () => clearTimeout(timer); // Cleanup timer on unmount
+        return () => clearTimeout(timer);
       }
     }, [delay]);
 
