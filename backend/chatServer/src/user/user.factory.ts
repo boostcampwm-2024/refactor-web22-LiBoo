@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './user.interface';
+import { User } from './user.dto';
 import { getRandomAdjective, getRandomBrightColor, getRandomNoun } from '../utils/random';
 
 @Injectable()
@@ -9,12 +9,12 @@ export class UserFactory {
   }
 
   createUserInstance(address: string, userAgent: string): User {
-    return {
+    return new User(
       address,
       userAgent,
-      nickname: this.createRandomNickname(),
-      color: getRandomBrightColor(),
-      entryTime: new Date().toISOString(),
-    };
+      new Date().toISOString(), // entryTime
+      this.createRandomNickname(), // nickname
+      getRandomBrightColor(), // nickname color
+    );
   }
 }

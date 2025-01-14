@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Cluster } from 'ioredis';
 import { QuestionDto } from '../event/dto/Question.dto';
 import { ChatException, CHATTING_SOCKET_ERROR } from '../chat/chat.error';
-import { User } from '../user/user.interface';
+import { User } from '../user/user.dto';
 
 type USER_AGENT = string;
 
