@@ -127,6 +127,10 @@ sharedWorker.onconnect = (e: MessageEvent) => {
   ports.push(port);
   port.start();
 
+  port.postMessage({
+    type: 'logging',
+    payload: `[PORT LOG] Message from port: Type:, Payload:`
+  });
   // 포트 메시지 처리
   port.onmessage = (e) => {
     const { type, payload } = e.data;

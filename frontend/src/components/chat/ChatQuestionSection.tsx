@@ -1,23 +1,21 @@
 import { memo, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
-import { MessageReceiveData, MessageSendData, UserInfoData } from '@type/chat';
+import { MessageReceiveData, UserInfoData } from '@type/chat';
 import { CHATTING_SOCKET_SEND_EVENT } from '@constants/chat';
-import { getStoredId } from '@utils/id';
-import { UserType } from '@type/user';
 import { useChat } from '@contexts/chatContext';
+import { useChatWorkerContext } from '@contexts/ChatWorkerContext';
+import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
 export interface ChatQuestionSectionProps {
   questions: MessageReceiveData[];
-  worker: MessagePort | null;
-  userType: UserType;
-  roomId: string;
 }
 
-const ChatQuestionSection = ({ questions, worker, userType, roomId }: ChatQuestionSectionProps) => {
+const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
   const [expanded, setExpanded] = useState(false);
 
-  const userId = getStoredId();
+  const { sendMessage } = useChatWorkerContext();
+  const { userType, roomId, userId } = useChatSessionContext();
 
   const toggleSection = useCallback(() => {
     setExpanded((prev) => !prev);
@@ -25,18 +23,13 @@ const ChatQuestionSection = ({ questions, worker, userType, roomId }: ChatQuesti
 
   const handleQuestionDone = useCallback(
     (questionId: number) => {
-      if (!worker) return;
-
-      worker.postMessage({
-        type: CHATTING_SOCKET_SEND_EVENT.QUESTION_DONE,
-        payload: {
-          roomId,
-          userId,
-          questionId
-        } as MessageSendData
+      sendMessage(CHATTING_SOCKET_SEND_EVENT.QUESTION_DONE, {
+        roomId,
+        userId,
+        questionId
       });
     },
-    [worker, roomId, userId]
+    [roomId, userId]
   );
 
   const { dispatch } = useChat();

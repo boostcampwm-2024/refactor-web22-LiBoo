@@ -6,7 +6,7 @@ import useFetchStreamKey from '@apis/queries/host/useFetchStreamKey';
 
 interface ChatSessionContextProps {
   userType: UserType;
-  roomId: string | null;
+  roomId: string;
   userId: string;
 }
 
@@ -36,7 +36,7 @@ export const ChatSessionProvider = ({
     }
   }, [userType, clientRoomId, userId, fetchSessionKey]);
 
-  if (userType === 'host' && !roomId) return <div>세션 키 로딩 중...</div>;
+  if (!roomId) return <div>불러오는 중</div>;
 
   return <ChatSessionContext.Provider value={{ userType, roomId, userId }}>{children}</ChatSessionContext.Provider>;
 };

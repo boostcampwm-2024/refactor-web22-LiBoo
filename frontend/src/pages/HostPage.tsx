@@ -1,4 +1,4 @@
-import { HostChatRoom } from '@components/chat';
+import { ChatRoom } from '@components/chat';
 import { Setting, Header } from '@components/host';
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ export default function HostPage() {
       <Header />
       <FlexContainer>
         <Setting />
-        <HostChatRoom />
+        <ChatRoom userType="host" />
       </FlexContainer>
     </>
   );
