@@ -1,15 +1,15 @@
+import ChatRoomView from './ChatRoomView';
 import { ChatSessionProvider } from '@contexts/ChatSessionContext';
-import ChatRoomLayout from './ChatRoomLayout';
 import { ChatWorkerProvider } from '@contexts/ChatWorkerContext';
-import { ChatProvider } from '@contexts/chatContext';
+import { ChatUIProvider } from '@contexts/ChatUIContext';
 
 const ChatRoomContainer = ({ userType }: { userType: 'client' | 'host' }) => {
   return (
     <ChatSessionProvider userType={userType}>
       <ChatWorkerProvider>
-        <ChatProvider>
-          <ChatRoomLayout />
-        </ChatProvider>
+        <ChatUIProvider>
+          <ChatRoomView />
+        </ChatUIProvider>
       </ChatWorkerProvider>
     </ChatSessionProvider>
   );

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import ThreePointIcon from '@assets/icons/three-point.svg';
 import OutIcon from '@assets/icons/out.svg';
-import { memo, useCallback, useContext, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import LayerPopup from './LayerPopup';
-import { ChatContext } from 'src/contexts/chatContext';
+import { useChatUI } from '@contexts/ChatUIContext';
 
 interface ChatHeaderProps {
   outBtnHandler: () => void;
@@ -18,7 +18,7 @@ const MemoizedHeaderBtn = memo(({ onClick, icon }: { onClick: () => void; icon: 
 MemoizedHeaderBtn.displayName = 'MemoizedHeaderBtn';
 
 export const ChatHeader = ({ outBtnHandler }: ChatHeaderProps) => {
-  const { state, dispatch } = useContext(ChatContext);
+  const { state, dispatch } = useChatUI();
   const headerRef = useRef<HTMLDivElement>(null);
 
   const toggleSettings = useCallback(() => {

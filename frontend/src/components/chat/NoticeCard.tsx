@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import CloseIcon from '@assets/icons/close.svg';
-import { memo, useCallback, useContext } from 'react';
-import { ChatContext } from 'src/contexts/chatContext';
+import { memo, useCallback } from 'react';
+import { useChatUI } from '@contexts/ChatUIContext';
 import { useFetchChatRule } from '@apis/queries/chat/useFetchChatRule';
 import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
 export const NoticeCard = () => {
   const { roomId } = useChatSessionContext();
 
-  const { dispatch } = useContext(ChatContext);
+  const { dispatch } = useChatUI();
 
   const toggleSettings = useCallback(() => {
     dispatch({ type: 'TOGGLE_ANNOUNCEMENT_POPUP' });

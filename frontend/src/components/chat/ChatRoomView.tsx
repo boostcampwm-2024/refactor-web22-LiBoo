@@ -1,4 +1,4 @@
-import { memo, useCallback, useContext, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import ChatHeader from './ChatHeader';
@@ -7,17 +7,17 @@ import ChatList from './ChatList';
 import ChatQuestionSection from './ChatQuestionSection';
 import ChatIcon from '@assets/icons/chat_icon.svg';
 import NoticeCard from './NoticeCard';
-import { useChat } from '@contexts/chatContext';
 import UserInfoCard from './UserInfoCard';
 import { useChatSessionContext } from '@contexts/ChatSessionContext';
 import { useChatRoom } from '@hooks/useChatRoom';
+import { useChatUI } from '@contexts/ChatUIContext';
 
-const ChatRoomLayout = () => {
+const ChatRoomView = () => {
   const [isChatRoomVisible, setIsChatRoomVisible] = useState(true);
 
   const { roomId, userId } = useChatSessionContext();
   const { messages, questions } = useChatRoom(roomId as string, userId);
-  const { state } = useChat();
+  const { state } = useChatUI();
 
   const handleCloseChatRoom = useCallback(() => {
     setIsChatRoomVisible(false);
@@ -60,7 +60,7 @@ const ChatRoomLayout = () => {
   );
 };
 
-export default memo(ChatRoomLayout);
+export default memo(ChatRoomView);
 
 const ChatOpenBtn = styled.button<{ $isVisible: boolean }>`
   display: ${({ $isVisible }) => ($isVisible ? 'flex' : 'none')};

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import { MessageReceiveData, UserInfoData } from '@type/chat';
 import { CHATTING_SOCKET_SEND_EVENT } from '@constants/chat';
-import { useChat } from '@contexts/chatContext';
+import { useChatUI } from '@contexts/ChatUIContext';
 import { useChatWorkerContext } from '@contexts/ChatWorkerContext';
 import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
@@ -32,7 +32,7 @@ const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
     [roomId, userId]
   );
 
-  const { dispatch } = useChat();
+  const { dispatch } = useChatUI();
 
   const onNicknameClick = useCallback(
     (data: UserInfoData) => {

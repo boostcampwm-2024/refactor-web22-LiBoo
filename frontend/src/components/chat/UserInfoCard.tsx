@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import CloseIcon from '@assets/icons/close.svg';
 import UserBlockIcon from '@assets/icons/user-block.svg';
-import { useChat } from 'src/contexts/chatContext';
+import { useChatUI } from '@contexts/ChatUIContext';
 import { CHATTING_SOCKET_DEFAULT_EVENT } from '@constants/chat';
 import { parseDate } from '@utils/parseDate';
 import { memo } from 'react';
@@ -15,7 +15,7 @@ export const UserInfoCard = () => {
   const { worker } = useChatWorkerContext();
   const { userType, roomId, userId } = useChatSessionContext();
 
-  const { state, dispatch } = useChat();
+  const { state, dispatch } = useChatUI();
   const { isOpen, closeModal, openModal } = useModal();
   const createPortal = usePortal();
 

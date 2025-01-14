@@ -3,7 +3,7 @@ import { createContext, useReducer, ReactNode, useContext } from 'react';
 
 type SettingOption = 'chat_notice' | 'ai_summary' | null;
 
-interface ChatState {
+interface ChatUIState {
   isSettingsOpen: boolean;
   settingOption: SettingOption;
   isNoticePopupOpen: boolean;
@@ -23,7 +23,7 @@ type Action =
     }
   | { type: 'CLOSE_ALL' };
 
-const chatReducer = (state: ChatState, action: Action): ChatState => {
+const chatReducer = (state: ChatUIState, action: Action): ChatUIState => {
   switch (action.type) {
     case 'TOGGLE_SETTINGS':
       return { ...state, isSettingsOpen: !state.isSettingsOpen };
@@ -67,7 +67,7 @@ const chatReducer = (state: ChatState, action: Action): ChatState => {
   }
 };
 
-const initialState: ChatState = {
+const initialState: ChatUIState = {
   isSettingsOpen: false,
   settingOption: null,
   isNoticePopupOpen: true,
@@ -75,25 +75,25 @@ const initialState: ChatState = {
   selectedUser: null
 };
 
-export const ChatContext = createContext<{
-  state: ChatState;
+export const ChatUIContext = createContext<{
+  state: ChatUIState;
   dispatch: React.Dispatch<Action>;
 }>({
   state: initialState,
   dispatch: () => {
-    throw new Error('ChatContext Provider를 확인하세요!');
+    throw new Error('ChatUIContext Provider를 확인하세요!');
   }
 });
 
-export const ChatProvider = ({ children }: { children: ReactNode }) => {
+export const ChatUIProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(chatReducer, initialState);
-  return <ChatContext.Provider value={{ state, dispatch }}>{children}</ChatContext.Provider>;
+  return <ChatUIContext.Provider value={{ state, dispatch }}>{children}</ChatUIContext.Provider>;
 };
 
-export const useChat = () => {
-  const context = useContext(ChatContext);
+export const useChatUI = () => {
+  const context = useContext(ChatUIContext);
   if (!context) {
-    throw new Error('ChatContext Provider를 확인하세요!');
+    throw new Error('ChatUIContext Provider를 확인하세요!');
   }
   return context;
 };

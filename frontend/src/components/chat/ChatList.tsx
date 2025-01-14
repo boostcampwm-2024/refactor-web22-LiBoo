@@ -5,7 +5,7 @@ import { UserInfoData, MessageReceiveData } from '@type/chat';
 import { CHATTING_TYPES } from '@constants/chat';
 import ChatAutoScroll from './ChatAutoScroll';
 import HostIconGreen from '@assets/icons/host_icon_green.svg';
-import { useChat } from '@contexts/chatContext';
+import { useChatUI } from '@contexts/ChatUIContext';
 
 export interface ChatListProps {
   messages: MessageReceiveData[];
@@ -63,7 +63,7 @@ const ChatList = ({ messages }: ChatListProps) => {
 
   const chatListRef = useRef<HTMLDivElement | null>(null);
 
-  const { dispatch } = useChat();
+  const { dispatch } = useChatUI();
 
   const onNicknameClick = useCallback(
     (data: UserInfoData) => {

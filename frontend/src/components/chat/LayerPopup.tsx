@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { ChatContext } from 'src/contexts/chatContext';
+import { useChatUI } from '@contexts/ChatUIContext';
 import styled from 'styled-components';
 
 export const LayerPopup = () => {
-  const { dispatch } = useContext(ChatContext);
+  const { dispatch } = useChatUI();
 
   const openSetting = (option: 'chat_notice' | 'ai_summary' | null) => {
     dispatch({ type: 'SET_SETTING', payload: option });
