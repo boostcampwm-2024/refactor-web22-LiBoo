@@ -34,7 +34,7 @@ const LiveVideoCard = ({ videoData }: LiveVideoCardProps) => {
   };
 
   const handleError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.src = defaultThumbnailImageUrl
+    event.currentTarget.src = defaultThumbnailImageUrl;
   };
 
   return (
