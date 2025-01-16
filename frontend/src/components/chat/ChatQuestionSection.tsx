@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import { MessageReceiveData, UserInfoData } from '@type/chat';
@@ -11,11 +11,19 @@ export interface ChatQuestionSectionProps {
   questions: MessageReceiveData[];
 }
 
+const buildUserInfoData = (question: MessageReceiveData): UserInfoData => ({
+  nickname: question.nickname,
+  socketId: question.socketId,
+  entryTime: question.entryTime,
+  owner: question.owner
+});
+
 const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
   const [expanded, setExpanded] = useState(false);
 
   const { sendMessage } = useChatWorkerContext();
   const { userType, roomId, userId } = useChatSessionContext();
+  const { dispatch } = useChatUI();
 
   const toggleSection = useCallback(() => {
     setExpanded((prev) => !prev);
@@ -32,8 +40,6 @@ const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
     [roomId, userId]
   );
 
-  const { dispatch } = useChatUI();
-
   const onNicknameClick = useCallback(
     (data: UserInfoData) => {
       dispatch({
@@ -44,47 +50,29 @@ const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
     [dispatch]
   );
 
+  useEffect(() => {
+    if (questions.length === 0) setExpanded(false);
+  }, [questions]);
+
   return (
     <SectionWrapper>
       <SectionContainer>
-        {questions.length === 0 ? (
-          <NoQuestionMessage>아직 질문이 없어요 ( °ᗝ° ).ᐟ.ᐟ</NoQuestionMessage>
-        ) : (
+        {questions.length ? (
           <>
-            <QuestionCard
-              key={questions[0].questionId}
-              type={userType}
-              question={questions[0]}
-              handleQuestionDone={handleQuestionDone}
-              ellipsis={!expanded}
-              onNicknameClick={() =>
-                onNicknameClick({
-                  nickname: questions[0].nickname,
-                  socketId: questions[0].socketId,
-                  entryTime: questions[0].entryTime,
-                  owner: questions[0].owner
-                })
-              }
-            />
-            {expanded &&
-              questions.slice(1).map((question) => (
-                <QuestionCard
-                  key={question.questionId}
-                  type={userType}
-                  question={question}
-                  handleQuestionDone={handleQuestionDone}
-                  onNicknameClick={() =>
-                    onNicknameClick({
-                      nickname: question.nickname,
-                      socketId: question.socketId,
-                      entryTime: question.entryTime,
-                      owner: question.owner
-                    })
-                  }
-                />
-              ))}
+            {questions.slice(0, expanded ? undefined : 1).map((question, index) => (
+              <QuestionCard
+                key={question.questionId}
+                type={userType}
+                question={question}
+                handleQuestionDone={handleQuestionDone}
+                ellipsis={index === 0 ? !expanded : undefined}
+                onNicknameClick={() => onNicknameClick(buildUserInfoData(question))}
+              />
+            ))}
             <SwipeBtn onClick={toggleSection} />
           </>
+        ) : (
+          <NoQuestionMessage>아직 질문이 없어요 ( °ᗝ° ).ᐟ.ᐟ</NoQuestionMessage>
         )}
       </SectionContainer>
     </SectionWrapper>

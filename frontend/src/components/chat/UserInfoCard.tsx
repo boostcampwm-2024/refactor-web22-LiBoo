@@ -60,12 +60,10 @@ export const UserInfoCard = () => {
         </CloseBtn>
       </UserInfoCardHeader>
       {userType === 'host' && selectedUser?.owner === 'user' && (
-        <>
-          <BanBtn onClick={openModal}>
-            <StyledUserBlockIcon />
-            사용자 차단
-          </BanBtn>
-        </>
+        <BanBtn onClick={openModal}>
+          <StyledUserBlockIcon />
+          사용자 차단
+        </BanBtn>
       )}
       {isOpen &&
         createPortal(
