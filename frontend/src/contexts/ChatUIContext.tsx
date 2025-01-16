@@ -11,17 +11,19 @@ import {
 } from '@reducers/actionCreators';
 import { chatUIReducer, ChatUIState, initialState, SettingOption } from '@reducers/chatUIReducer';
 
+export type ChatUIHandlers = {
+  toggleSettings: () => void;
+  closeSettings: () => void;
+  setSetting: (option: SettingOption) => void;
+  toggleNoticePopup: () => void;
+  closeUserInfoPopup: () => void;
+  setSelectedUser: (user: UserInfoData | null) => void;
+  closeAll: () => void;
+};
+
 export const ChatUIContext = createContext<{
   state: ChatUIState;
-  handlers: {
-    toggleSettings: () => void;
-    closeSettings: () => void;
-    setSetting: (option: SettingOption) => void;
-    toggleNoticePopup: () => void;
-    closeUserInfoPopup: () => void;
-    setSelectedUser: (user: UserInfoData | null) => void;
-    closeAll: () => void;
-  };
+  handlers: ChatUIHandlers;
 }>({
   state: initialState,
   handlers: {
@@ -38,7 +40,7 @@ export const ChatUIContext = createContext<{
 export const ChatUIProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(chatUIReducer, initialState);
 
-  const handlers = useMemo(
+  const handlers = useMemo<ChatUIHandlers>(
     () => ({
       toggleSettings: () => dispatch(toggleSettings()),
       closeSettings: () => dispatch(closeSettings()),

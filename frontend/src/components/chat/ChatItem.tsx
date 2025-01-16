@@ -62,6 +62,8 @@ const ChatItem = memo(({ chat, onNicknameClick }: ChatItemProps) => {
   }
 });
 
+ChatItem.displayName = 'ChatItem';
+
 export default ChatItem;
 
 const NoticeChat = styled.div`
