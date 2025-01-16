@@ -1,12 +1,27 @@
-import styled from 'styled-components';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import SearchIcon from '@assets/icons/search_icon.svg';
 import VideoIcon from '@assets/icons/video_icon.svg';
 import { ASSETS } from '@constants/assets';
+import useDebounce from '@hooks/useDebounce';
 
 const SearchHeader = () => {
   const navigate = useNavigate();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const debouncedSearchInput = useDebounce(searchInputRef.current?.value || '');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (searchInputRef.current) {
+      searchInputRef.current.value = e.target.value;
+    }
+  };
+
+  const handleSearch = () => {
+    // api 연결 필요
+    console.log('submit', debouncedSearchInput);
+  };
 
   return (
     <SearchHeaderContainer>
@@ -15,10 +30,16 @@ const SearchHeader = () => {
       </LogoContainer>
       <SearchBox>
         <SearchInputWrapper>
-          <SearchInput type="text" placeholder="컨퍼런스 검색" />
-          <SearchIconStyled />
+          <SearchInput
+            type="text"
+            placeholder="컨퍼런스 검색"
+            ref={searchInputRef}
+            onChange={handleInputChange}
+          />
+          <div onClick={handleSearch}>
+            <SearchIconStyled />
+          </div>
         </SearchInputWrapper>
-        <SearchButton />
       </SearchBox>
       <StudioBox onClick={() => navigate('/host')}>
         <VideoIconStyled />
