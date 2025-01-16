@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { UserInfoData, MessageReceiveData } from '@type/chat';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 import ChatAutoScroll from './ChatAutoScroll';
-import { useChatUI } from '@contexts/ChatUIContext';
 import ChatItem from './ChatItem';
 
 export interface ChatListProps {
@@ -15,16 +15,13 @@ const ChatList = ({ messages }: ChatListProps) => {
 
   const chatListRef = useRef<HTMLDivElement | null>(null);
 
-  const { dispatch } = useChatUI();
+  const { handlers } = useChatUIContext();
 
   const onNicknameClick = useCallback(
     (data: UserInfoData) => {
-      dispatch({
-        type: 'SET_SELECTED_USER',
-        payload: data
-      });
+      handlers.setSelectedUser(data);
     },
-    [dispatch]
+    [handlers]
   );
 
   const checkIfAtBottom = () => {

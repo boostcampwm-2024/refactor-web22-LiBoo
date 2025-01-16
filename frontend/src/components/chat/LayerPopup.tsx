@@ -1,12 +1,16 @@
-import { useChatUI } from '@contexts/ChatUIContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 
 export const LayerPopup = () => {
-  const { dispatch } = useChatUI();
+  const { handlers } = useChatUIContext();
 
-  const openSetting = (option: 'chat_notice' | 'ai_summary' | null) => {
-    dispatch({ type: 'SET_SETTING', payload: option });
-  };
+  const openSetting = useCallback(
+    (option: 'chat_notice' | 'ai_summary' | null) => {
+      handlers.setSetting(option);
+    },
+    [handlers]
+  );
 
   return (
     <LayerPopupContainer>

@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 import CloseIcon from '@assets/icons/close.svg';
 import { memo, useCallback } from 'react';
-import { useChatUI } from '@contexts/ChatUIContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 import { useFetchChatRule } from '@apis/queries/chat/useFetchChatRule';
 import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
 export const NoticeCard = () => {
   const { roomId } = useChatSessionContext();
 
-  const { dispatch } = useChatUI();
+  const { handlers } = useChatUIContext();
 
-  const toggleSettings = useCallback(() => {
-    dispatch({ type: 'TOGGLE_ANNOUNCEMENT_POPUP' });
-  }, [dispatch]);
+  const toggleNoticePopup = useCallback(() => {
+    handlers.toggleNoticePopup();
+  }, [handlers]);
 
   const { data: noticeInfo } = useFetchChatRule({ roomId: roomId || '' });
 
@@ -29,7 +29,7 @@ export const NoticeCard = () => {
             <div className="text_strong">채팅 규칙 📢</div>
           </NoticeCardArea>
         </NoticeCardWrapper>
-        <CloseBtn onClick={toggleSettings}>
+        <CloseBtn onClick={toggleNoticePopup}>
           <StyledCloseIcon />
         </CloseBtn>
       </NoticeCardHeader>

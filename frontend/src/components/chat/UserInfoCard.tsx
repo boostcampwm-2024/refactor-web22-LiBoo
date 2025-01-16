@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import CloseIcon from '@assets/icons/close.svg';
 import UserBlockIcon from '@assets/icons/user-block.svg';
-import { useChatUI } from '@contexts/ChatUIContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 import { CHATTING_SOCKET_DEFAULT_EVENT } from '@constants/chat';
 import { parseDate } from '@utils/parseDate';
 import { memo } from 'react';
@@ -15,12 +15,12 @@ export const UserInfoCard = () => {
   const { worker } = useChatWorkerContext();
   const { userType, roomId, userId } = useChatSessionContext();
 
-  const { state, dispatch } = useChatUI();
+  const { state, handlers } = useChatUIContext();
   const { isOpen, closeModal, openModal } = useModal();
   const createPortal = usePortal();
 
-  const toggleSettings = () => {
-    dispatch({ type: 'CLOSE_USER_INFO_POPUP' });
+  const closeUserInfoPopup = () => {
+    handlers.closeUserInfoPopup();
   };
 
   const { selectedUser } = state;
@@ -37,7 +37,7 @@ export const UserInfoCard = () => {
       }
     });
 
-    toggleSettings();
+    closeUserInfoPopup();
   };
 
   return (
@@ -55,7 +55,7 @@ export const UserInfoCard = () => {
             <div className="entry_time">{parseDate(selectedUser?.entryTime as string)} 입장</div>
           </UserInfoCardArea>
         </UserInfoCardWrapper>
-        <CloseBtn onClick={toggleSettings}>
+        <CloseBtn onClick={closeUserInfoPopup}>
           <StyledCloseIcon />
         </CloseBtn>
       </UserInfoCardHeader>

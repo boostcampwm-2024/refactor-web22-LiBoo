@@ -82,7 +82,7 @@ const ChatInput = () => {
       if (textarea) {
         requestAnimationFrame(() => {
           textarea.style.height = `${INITIAL_TEXTAREA_HEIGHT}px`;
-          textarea.style.height = `${textarea.scrollHeight - 5}px`;
+          textarea.style.height = `${textarea.scrollHeight}px`;
         });
       }
     };
@@ -179,7 +179,7 @@ const ChatInputWrapper = styled.div<{ $hasInput: boolean; $isFocused: boolean }>
 
 const ChatInputArea = styled.textarea`
   width: 100%;
-  min-height: 20px;
+  min-height: 25px;
   max-height: 40px;
   scrollbar-width: none;
   resize: none;
@@ -189,7 +189,7 @@ const ChatInputArea = styled.textarea`
   ${({ theme }) => theme.tokenTypographys['display-medium16']};
   background-color: transparent;
   white-space: normal;
-  line-height: 23px;
+  padding: 0px 0px;
 `;
 
 const InputBtn = styled.button`

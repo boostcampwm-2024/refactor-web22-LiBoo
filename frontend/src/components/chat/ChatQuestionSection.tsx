@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import { MessageReceiveData, UserInfoData } from '@type/chat';
 import { CHATTING_SOCKET_SEND_EVENT } from '@constants/chat';
-import { useChatUI } from '@contexts/ChatUIContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 import { useChatWorkerContext } from '@contexts/ChatWorkerContext';
 import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
@@ -23,7 +23,7 @@ const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
 
   const { sendMessage } = useChatWorkerContext();
   const { userType, roomId, userId } = useChatSessionContext();
-  const { dispatch } = useChatUI();
+  const { handlers } = useChatUIContext();
 
   const toggleSection = useCallback(() => {
     setExpanded((prev) => !prev);
@@ -42,12 +42,9 @@ const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
 
   const onNicknameClick = useCallback(
     (data: UserInfoData) => {
-      dispatch({
-        type: 'SET_SELECTED_USER',
-        payload: data
-      });
+      handlers.setSelectedUser(data);
     },
-    [dispatch]
+    [handlers]
   );
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 import { memo, useCallback, useState } from 'react';
 import styled from 'styled-components';
-
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 import ChatList from './ChatList';
@@ -8,16 +7,16 @@ import ChatQuestionSection from './ChatQuestionSection';
 import ChatIcon from '@assets/icons/chat_icon.svg';
 import NoticeCard from './NoticeCard';
 import UserInfoCard from './UserInfoCard';
-import { useChatSessionContext } from '@contexts/ChatSessionContext';
 import { useChatRoom } from '@hooks/useChatRoom';
-import { useChatUI } from '@contexts/ChatUIContext';
+import { useChatSessionContext } from '@contexts/ChatSessionContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 
 const ChatRoomView = () => {
   const [isChatRoomVisible, setIsChatRoomVisible] = useState(true);
 
   const { roomId, userId } = useChatSessionContext();
   const { messages, questions } = useChatRoom(roomId as string, userId);
-  const { state } = useChatUI();
+  const { state } = useChatUIContext();
 
   const handleCloseChatRoom = useCallback(() => {
     setIsChatRoomVisible(false);
