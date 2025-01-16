@@ -111,16 +111,6 @@ const SearchIconStyled = styled(SearchIcon)`
   cursor: pointer;
 `;
 
-const SearchButton = styled.button`
-  background: ${({ theme }) => theme.tokenColors['primary-default']};
-  color: ${({ theme }) => theme.tokenColors['color-white']};
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-`;
-
 const StudioBox = styled.div`
   display: flex;
   align-items: center;
