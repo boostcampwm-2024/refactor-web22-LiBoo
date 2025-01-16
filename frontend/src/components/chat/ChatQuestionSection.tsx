@@ -1,23 +1,29 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
-import { MessageReceiveData, MessageSendData, UserInfoData } from '@type/chat';
+import { MessageReceiveData, UserInfoData } from '@type/chat';
 import { CHATTING_SOCKET_SEND_EVENT } from '@constants/chat';
-import { getStoredId } from '@utils/id';
-import { UserType } from '@type/user';
-import { useChat } from '@contexts/chatContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
+import { useChatWorkerContext } from '@contexts/ChatWorkerContext';
+import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
 export interface ChatQuestionSectionProps {
   questions: MessageReceiveData[];
-  worker: MessagePort | null;
-  userType: UserType;
-  roomId: string;
 }
 
-const ChatQuestionSection = ({ questions, worker, userType, roomId }: ChatQuestionSectionProps) => {
+const buildUserInfoData = (question: MessageReceiveData): UserInfoData => ({
+  nickname: question.nickname,
+  socketId: question.socketId,
+  entryTime: question.entryTime,
+  owner: question.owner
+});
+
+const ChatQuestionSection = ({ questions }: ChatQuestionSectionProps) => {
   const [expanded, setExpanded] = useState(false);
 
-  const userId = getStoredId();
+  const { sendMessage } = useChatWorkerContext();
+  const { userType, roomId, userId } = useChatSessionContext();
+  const { handlers } = useChatUIContext();
 
   const toggleSection = useCallback(() => {
     setExpanded((prev) => !prev);
@@ -25,73 +31,45 @@ const ChatQuestionSection = ({ questions, worker, userType, roomId }: ChatQuesti
 
   const handleQuestionDone = useCallback(
     (questionId: number) => {
-      if (!worker) return;
-
-      worker.postMessage({
-        type: CHATTING_SOCKET_SEND_EVENT.QUESTION_DONE,
-        payload: {
-          roomId,
-          userId,
-          questionId
-        } as MessageSendData
+      sendMessage(CHATTING_SOCKET_SEND_EVENT.QUESTION_DONE, {
+        roomId,
+        userId,
+        questionId
       });
     },
-    [worker, roomId, userId]
+    [roomId, userId]
   );
-
-  const { dispatch } = useChat();
 
   const onNicknameClick = useCallback(
     (data: UserInfoData) => {
-      dispatch({
-        type: 'SET_SELECTED_USER',
-        payload: data
-      });
+      handlers.setSelectedUser(data);
     },
-    [dispatch]
+    [handlers]
   );
+
+  useEffect(() => {
+    if (questions.length === 0) setExpanded(false);
+  }, [questions]);
 
   return (
     <SectionWrapper>
       <SectionContainer>
-        {questions.length === 0 ? (
-          <NoQuestionMessage>아직 질문이 없어요 ( °ᗝ° ).ᐟ.ᐟ</NoQuestionMessage>
-        ) : (
+        {questions.length ? (
           <>
-            <QuestionCard
-              key={questions[0].questionId}
-              type={userType}
-              question={questions[0]}
-              handleQuestionDone={handleQuestionDone}
-              ellipsis={!expanded}
-              onNicknameClick={() =>
-                onNicknameClick({
-                  nickname: questions[0].nickname,
-                  socketId: questions[0].socketId,
-                  entryTime: questions[0].entryTime,
-                  owner: questions[0].owner
-                })
-              }
-            />
-            {expanded &&
-              questions.slice(1).map((question) => (
-                <QuestionCard
-                  key={question.questionId}
-                  type={userType}
-                  question={question}
-                  handleQuestionDone={handleQuestionDone}
-                  onNicknameClick={() =>
-                    onNicknameClick({
-                      nickname: question.nickname,
-                      socketId: question.socketId,
-                      entryTime: question.entryTime,
-                      owner: question.owner
-                    })
-                  }
-                />
-              ))}
+            {questions.slice(0, expanded ? undefined : 1).map((question, index) => (
+              <QuestionCard
+                key={question.questionId}
+                type={userType}
+                question={question}
+                handleQuestionDone={handleQuestionDone}
+                ellipsis={index === 0 ? !expanded : undefined}
+                onNicknameClick={() => onNicknameClick(buildUserInfoData(question))}
+              />
+            ))}
             <SwipeBtn onClick={toggleSection} />
           </>
+        ) : (
+          <NoQuestionMessage>아직 질문이 없어요 ( °ᗝ° ).ᐟ.ᐟ</NoQuestionMessage>
         )}
       </SectionContainer>
     </SectionWrapper>

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
+import { memo, useCallback, useEffect, useRef } from 'react';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 import ThreePointIcon from '@assets/icons/three-point.svg';
 import OutIcon from '@assets/icons/out.svg';
-import { memo, useCallback, useContext, useEffect, useRef } from 'react';
 import LayerPopup from './LayerPopup';
-import { ChatContext } from 'src/contexts/chatContext';
 
 interface ChatHeaderProps {
   outBtnHandler: () => void;
@@ -18,20 +18,19 @@ const MemoizedHeaderBtn = memo(({ onClick, icon }: { onClick: () => void; icon: 
 MemoizedHeaderBtn.displayName = 'MemoizedHeaderBtn';
 
 export const ChatHeader = ({ outBtnHandler }: ChatHeaderProps) => {
-  const { state, dispatch } = useContext(ChatContext);
+  const { state, handlers } = useChatUIContext();
   const headerRef = useRef<HTMLDivElement>(null);
 
   const toggleSettings = useCallback(() => {
-    dispatch({ type: 'TOGGLE_SETTINGS' });
-  }, [dispatch]);
+    handlers.toggleSettings();
+  }, [handlers]);
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(event.target as Node) && state.isSettingsOpen) {
-        dispatch({ type: 'CLOSE_SETTINGS' });
-      }
+      if (headerRef.current && !headerRef.current.contains(event.target as Node) && state.isSettingsOpen)
+        handlers.closeSettings();
     },
-    [dispatch, state.isSettingsOpen]
+    [handlers, state.isSettingsOpen]
   );
 
   useEffect(() => {
@@ -68,7 +67,6 @@ const ChatHeaderContainer = styled.div`
 const HeaderBtn = styled.button`
   display: flex;
   color: ${({ theme }) => theme.tokenColors['text-bold']};
-  cursor: pointer;
 `;
 
 const StyledIcon = styled.svg`

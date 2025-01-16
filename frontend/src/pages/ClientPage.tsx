@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ClientChatRoom } from '@components/chat';
+import { ChatRoom } from '@components/chat';
 import { ClientView, Header } from '@components/client';
 import { AsyncBoundary } from '@components/common/AsyncBoundary';
 import { PlayerStreamError } from '@components/error';
@@ -13,7 +13,7 @@ function ClientPageComponent() {
       <ClientContainer>
         <AsyncBoundary pendingFallback={<></>} rejectedFallback={() => <PlayerStreamError />}>
           <ClientView />
-          <ClientChatRoom />
+          <ChatRoom userType="client" />
         </AsyncBoundary>
       </ClientContainer>
     </>

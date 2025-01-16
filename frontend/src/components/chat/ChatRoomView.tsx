@@ -1,30 +1,22 @@
-import { memo, useCallback, useContext, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import styled from 'styled-components';
-
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 import ChatList from './ChatList';
 import ChatQuestionSection from './ChatQuestionSection';
 import ChatIcon from '@assets/icons/chat_icon.svg';
-import { useChatRoom } from '@hooks/useChatRoom';
-import { UserType } from '@type/user';
-import { getStoredId } from '@utils/id';
 import NoticeCard from './NoticeCard';
-import { ChatContext } from '@contexts/chatContext';
 import UserInfoCard from './UserInfoCard';
+import { useChatRoom } from '@hooks/useChatRoom';
+import { useChatSessionContext } from '@contexts/ChatSessionContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 
-interface ChatRoomLayoutProps {
-  userType: UserType;
-  roomId: string;
-}
-
-const ChatRoomLayout = ({ userType, roomId }: ChatRoomLayoutProps) => {
+const ChatRoomView = () => {
   const [isChatRoomVisible, setIsChatRoomVisible] = useState(true);
 
-  const userId = getStoredId();
-  const { worker, messages, questions } = useChatRoom(roomId as string, userId);
-
-  const { state } = useContext(ChatContext);
+  const { roomId, userId } = useChatSessionContext();
+  const { messages, questions } = useChatRoom(roomId as string, userId);
+  const { state } = useChatUIContext();
 
   const handleCloseChatRoom = useCallback(() => {
     setIsChatRoomVisible(false);
@@ -43,31 +35,31 @@ const ChatRoomLayout = ({ userType, roomId }: ChatRoomLayoutProps) => {
       <ChatRoomContainer $isVisible={isChatRoomVisible}>
         <ChatHeader outBtnHandler={handleCloseChatRoom} />
 
-        <ChatQuestionSection questions={questions} worker={worker} userType={userType} roomId={roomId} />
+        <ChatQuestionSection questions={questions} />
 
         <ChatList messages={messages} />
 
         {state.isNoticePopupOpen && (
           <PopupWrapper>
-            <NoticeCard sessionKey={roomId} />
+            <NoticeCard />
           </PopupWrapper>
         )}
 
         {state.isUserInfoPopupOpen && (
           <PopupWrapper>
-            <UserInfoCard worker={worker} roomId={roomId} userType={userType} />
+            <UserInfoCard />
           </PopupWrapper>
         )}
 
         <ChatInputContainer>
-          <ChatInput worker={worker} userType={userType} roomId={roomId} />
+          <ChatInput />
         </ChatInputContainer>
       </ChatRoomContainer>
     </>
   );
 };
 
-export default memo(ChatRoomLayout);
+export default memo(ChatRoomView);
 
 const ChatOpenBtn = styled.button<{ $isVisible: boolean }>`
   display: ${({ $isVisible }) => ($isVisible ? 'flex' : 'none')};
