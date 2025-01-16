@@ -5,12 +5,10 @@ import styled from 'styled-components';
 import SearchIcon from '@assets/icons/search_icon.svg';
 import VideoIcon from '@assets/icons/video_icon.svg';
 import { ASSETS } from '@constants/assets';
-import useDebounce from '@hooks/useDebounce';
 
 const SearchHeader = () => {
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const debouncedSearchInput = useDebounce(searchInputRef.current?.value || '');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (searchInputRef.current) {
@@ -20,7 +18,7 @@ const SearchHeader = () => {
 
   const handleSearch = () => {
     // api 연결 필요
-    console.log('submit', debouncedSearchInput);
+    console.log('submit', searchInputRef.current?.value);
   };
 
   return (
