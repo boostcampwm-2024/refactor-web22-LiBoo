@@ -70,7 +70,6 @@ const QuestionCard = ({ type, question, handleQuestionDone, onNicknameClick, ell
   );
 };
 
-// shouldComponentUpdate를 내부에서 사용할 수 있도록 memo 사용
 export default memo(QuestionCard, (prevProps, nextProps) => {
   return (
     prevProps.question.questionId === nextProps.question.questionId &&

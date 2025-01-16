@@ -1,3 +1,6 @@
+import { UserInfoData } from '@type/chat';
+import { SettingOption } from './chatUIReducer';
+
 // Video Player Actions
 export const playPause = () => ({ type: 'PLAY_PAUSE' } as const);
 export const muteToggle = () => ({ type: 'MUTE_TOGGLE' } as const);
@@ -17,3 +20,13 @@ export const hideControls = () => ({ type: 'HIDE_CONTROLS' } as const);
 export const setPreviewTime = (time: number | null) => ({ type: 'SET_PREVIEW_TIME', payload: time } as const);
 export const setPreviewPos = (pos: number) => ({ type: 'SET_PREVIEW_POS', payload: pos } as const);
 export const setIsDragging = (isDragging: boolean) => ({ type: 'SET_IS_DRAGGING', payload: isDragging } as const);
+
+// Chat UI Actions
+export const toggleSettings = () => ({ type: 'TOGGLE_SETTINGS' } as const);
+export const closeSettings = () => ({ type: 'CLOSE_SETTINGS' } as const);
+export const setSetting = (option: SettingOption) => ({ type: 'SET_SETTING', payload: option } as const);
+export const toggleNoticePopup = () => ({ type: 'TOGGLE_NOTICE_POPUP' } as const);
+export const closeUserInfoPopup = () => ({ type: 'CLOSE_USER_INFO_POPUP' } as const);
+export const setSelectedUser = (selectedUser: UserInfoData | null) =>
+  ({ type: 'SET_SELECTED_USER', payload: selectedUser } as const);
+export const closeAll = () => ({ type: 'CLOSE_ALL' } as const);
