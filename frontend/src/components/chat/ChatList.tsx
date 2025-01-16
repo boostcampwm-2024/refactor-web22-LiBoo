@@ -14,44 +14,44 @@ export interface ChatListProps {
 const ChatItemWrapper = memo(
   ({ chat, onNicknameClick }: { chat: MessageReceiveData; onNicknameClick: (data: UserInfoData) => void }) => {
     const { nickname, socketId, entryTime, owner } = chat;
+
     const handleNicknameClick = () => onNicknameClick({ nickname, socketId, entryTime, owner });
-    if (chat.msgType === CHATTING_TYPES.QUESTION) {
-      return (
-        <ChatItem>
-          <QuestionCard type="client" question={chat} onNicknameClick={handleNicknameClick} />
-        </ChatItem>
-      );
-    } else if (chat.msgType === CHATTING_TYPES.NOTICE) {
-      return (
-        <ChatItem>
-          <NoticeChat>
-            <span>📢</span>
-            <span>{chat.msg}</span>
-          </NoticeChat>
-        </ChatItem>
-      );
-    } else if (chat.msgType === CHATTING_TYPES.EXCEPTION) {
-      return (
-        <ChatItem>
-          <NoticeChat>
-            <span>🚨</span>
-            <span>{chat.msg}</span>
-          </NoticeChat>
-        </ChatItem>
-      );
-    } else {
-      return (
-        <ChatItem>
-          <NormalChat $isHost={chat.owner === 'host'} $pointColor={chat.owner === 'host' ? '#0ADD91' : chat.color}>
-            <span className="text_point user_name" onClick={handleNicknameClick}>
-              {chat.owner === 'me' ? '🧀 ' : chat.owner === 'host' ? <StyledIcon as={HostIconGreen} /> : null}
-              {chat.nickname}
-            </span>
-            <span className="chat_message">{chat.msg}</span>
-          </NormalChat>
-        </ChatItem>
-      );
-    }
+
+    const renderChatContent = () => {
+      switch (chat.msgType) {
+        case CHATTING_TYPES.QUESTION:
+          return <QuestionCard type="client" question={chat} onNicknameClick={handleNicknameClick} />;
+
+        case CHATTING_TYPES.NOTICE:
+          return (
+            <NoticeChat>
+              <span>📢</span>
+              <span>{chat.msg}</span>
+            </NoticeChat>
+          );
+
+        case CHATTING_TYPES.EXCEPTION:
+          return (
+            <NoticeChat>
+              <span>🚨</span>
+              <span>{chat.msg}</span>
+            </NoticeChat>
+          );
+
+        default:
+          return (
+            <NormalChat $isHost={chat.owner === 'host'} $pointColor={chat.owner === 'host' ? '#0ADD91' : chat.color}>
+              <span className="text_point user_name" onClick={handleNicknameClick}>
+                {chat.owner === 'me' ? '🧀 ' : chat.owner === 'host' ? <StyledIcon as={HostIconGreen} /> : null}
+                {chat.nickname}
+              </span>
+              <span className="chat_message">{chat.msg}</span>
+            </NormalChat>
+          );
+      }
+    };
+
+    return <ChatItem>{renderChatContent()}</ChatItem>;
   }
 );
 
