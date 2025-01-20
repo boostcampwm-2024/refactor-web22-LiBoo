@@ -1,24 +1,17 @@
-import { useEffect, useState } from 'react';
-import SharedWorker from '@utils/chatWorker?sharedworker';
+import { useState, useEffect } from 'react';
+import { useChatWorkerContext } from '@contexts/ChatWorkerContext';
 import { CHATTING_SOCKET_DEFAULT_EVENT, CHATTING_SOCKET_RECEIVE_EVENT } from '@constants/chat';
 import { MessageReceiveData } from '@type/chat';
 
 export const useChatRoom = (roomId: string, userId: string) => {
-  const [worker, setWorker] = useState<SharedWorker | null>(null);
   const [messages, setMessages] = useState<MessageReceiveData[]>([]);
   const [questions, setQuestions] = useState<MessageReceiveData[]>([]);
+  const { worker, joinRoom, leaveRoom } = useChatWorkerContext();
 
   useEffect(() => {
-    if (!roomId) return;
+    if (!worker || !roomId || !userId) return;
 
-    const worker = new SharedWorker();
-    setWorker(worker);
-
-    worker.port.start();
-    worker.port.postMessage({
-      type: CHATTING_SOCKET_DEFAULT_EVENT.JOIN_ROOM,
-      payload: { roomId, userId }
-    });
+    joinRoom(roomId, userId);
 
     worker.port.onmessage = (event) => {
       const { type, payload } = event.data;
@@ -51,9 +44,9 @@ export const useChatRoom = (roomId: string, userId: string) => {
     };
 
     return () => {
-      worker.port.close();
+      leaveRoom();
     };
-  }, [roomId, userId]);
+  }, [worker, roomId, userId, joinRoom, leaveRoom]);
 
-  return { worker: worker?.port ?? null, messages, questions };
+  return { messages, questions };
 };

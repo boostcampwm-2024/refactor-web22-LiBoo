@@ -53,7 +53,7 @@ const RecommendLiveBox = styled.div<{ $isTransitioning: boolean }>`
   right: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   z-index: -1;
   box-shadow: inset 180px -180px 300px 0px #141517;
   opacity: ${({ $isTransitioning }) => ($isTransitioning ? 0 : 0.6)};

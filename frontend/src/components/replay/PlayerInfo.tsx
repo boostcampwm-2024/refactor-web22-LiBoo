@@ -1,8 +1,8 @@
-import { ASSETS } from '@constants/assets';
 import styled from 'styled-components';
 
 import sampleProfile from '@assets/sample_profile.png';
 import ShowInfoBadge from '@common/ShowInfoBadge';
+import BoostBanner from '@components/common/BoostBanner';
 import { ReplayStream } from '@type/replay';
 import { formatTimeDifference } from '@utils/formatTimeDifference';
 
@@ -38,9 +38,7 @@ const PlayerInfo = ({ clientReplayData }: { clientReplayData: ReplayStream }) =>
           </TagBox>
         </VideoInfo>
       </PlayerInfoBox>
-      <BannerLink href="https://boostcamp.connect.or.kr/" target="_blank" rel="noopener noreferrer">
-        <Banner src={ASSETS.IMAGES.BANNER.CLIENT} alt="Client Banner" />
-      </BannerLink>
+      <BoostBanner />
     </PlayerInfoContainer>
   );
 };
@@ -131,23 +129,4 @@ const Category = styled.p`
 const TagBox = styled.div`
   display: flex;
   gap: 8px;
-`;
-
-const BannerLink = styled.a`
-  display: block;
-  margin-top: 24px;
-  border-radius: 7px;
-  overflow: hidden;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-
-const Banner = styled.img`
-  width: 100%;
-  aspect-ratio: 16 / 2;
-  object-fit: cover;
-  display: block;
 `;

@@ -33,6 +33,10 @@ const LiveVideoCard = ({ videoData }: LiveVideoCardProps) => {
     navigate(`/live/${liveId}`);
   };
 
+  const handleError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.src = defaultThumbnailImageUrl;
+  };
+
   return (
     <VideoCardContainer>
       <ThumbnailContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleLiveClick}>
@@ -40,7 +44,7 @@ const LiveVideoCard = ({ videoData }: LiveVideoCardProps) => {
           <video ref={videoRef} muted playsInline preload="none" />
         </VideoBox>
         <VideoCardThumbnail $isVideoVisible={isHovered && isVideoLoaded}>
-          <VideoCardImage src={liveImageUrl ?? defaultThumbnailImageUrl} />
+          <VideoCardImage src={liveImageUrl ?? defaultThumbnailImageUrl} alt={'live_thumnail'} onError={handleError} />
         </VideoCardThumbnail>
         <VideoCardDescription>
           <LiveBadge />

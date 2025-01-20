@@ -1,39 +1,34 @@
 import styled from 'styled-components';
 import CloseIcon from '@assets/icons/close.svg';
 import UserBlockIcon from '@assets/icons/user-block.svg';
-import { useChat } from 'src/contexts/chatContext';
+import { useChatUIContext } from '@contexts/ChatUIContext';
 import { CHATTING_SOCKET_DEFAULT_EVENT } from '@constants/chat';
-import { getStoredId } from '@utils/id';
-import { UserType } from '@type/user';
 import { parseDate } from '@utils/parseDate';
 import { memo } from 'react';
 import { usePortal } from '@hooks/usePortal';
 import { useModal } from '@hooks/useModal';
 import ConfirmModal from '@components/common/ConfirmModal';
+import { useChatWorkerContext } from '@contexts/ChatWorkerContext';
+import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
-interface UserInfoCardProps {
-  worker: MessagePort | null;
-  roomId: string;
-  userType: UserType;
-}
+export const UserInfoCard = () => {
+  const { worker } = useChatWorkerContext();
+  const { userType, roomId, userId } = useChatSessionContext();
 
-export const UserInfoCard = ({ worker, roomId, userType }: UserInfoCardProps) => {
-  const { state, dispatch } = useChat();
+  const { state, handlers } = useChatUIContext();
   const { isOpen, closeModal, openModal } = useModal();
   const createPortal = usePortal();
 
-  const toggleSettings = () => {
-    dispatch({ type: 'CLOSE_USER_INFO_POPUP' });
+  const closeUserInfoPopup = () => {
+    handlers.closeUserInfoPopup();
   };
 
   const { selectedUser } = state;
 
-  const userId = getStoredId();
-
   const onBan = () => {
     if (!worker) return;
 
-    worker.postMessage({
+    worker.port.postMessage({
       type: CHATTING_SOCKET_DEFAULT_EVENT.BAN_USER,
       payload: {
         socketId: selectedUser?.socketId,
@@ -42,7 +37,7 @@ export const UserInfoCard = ({ worker, roomId, userType }: UserInfoCardProps) =>
       }
     });
 
-    toggleSettings();
+    closeUserInfoPopup();
   };
 
   return (
@@ -60,17 +55,15 @@ export const UserInfoCard = ({ worker, roomId, userType }: UserInfoCardProps) =>
             <div className="entry_time">{parseDate(selectedUser?.entryTime as string)} 입장</div>
           </UserInfoCardArea>
         </UserInfoCardWrapper>
-        <CloseBtn onClick={toggleSettings}>
+        <CloseBtn onClick={closeUserInfoPopup}>
           <StyledCloseIcon />
         </CloseBtn>
       </UserInfoCardHeader>
       {userType === 'host' && selectedUser?.owner === 'user' && (
-        <>
-          <BanBtn onClick={openModal}>
-            <StyledUserBlockIcon />
-            사용자 차단
-          </BanBtn>
-        </>
+        <BanBtn onClick={openModal}>
+          <StyledUserBlockIcon />
+          사용자 차단
+        </BanBtn>
       )}
       {isOpen &&
         createPortal(

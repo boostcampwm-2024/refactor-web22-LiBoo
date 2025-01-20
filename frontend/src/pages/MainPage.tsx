@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import { styled } from 'styled-components';
 
 import { AsyncBoundary } from '@common/AsyncBoundary';
@@ -10,6 +11,11 @@ import { RecommendLiveSkeleton } from '@components/skeleton';
 export default function MainPage() {
   return (
     <>
+      <Helmet>
+        <meta name="description" content="메인 페이지로, 실시간 방송과 다시보기 방송을 볼 수 있는 페이지입니다." />
+        <title>메인 페이지</title>
+      </Helmet>
+
       <MainHeader />
       <MainPageContainer>
         <AsyncBoundary

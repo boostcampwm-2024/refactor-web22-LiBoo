@@ -7,10 +7,10 @@ export const ASSETS = {
       LOADING: 'https://kr.object.ncloudstorage.com/web22/static/player_loading.gif'
     },
     THUMBNAIL: {
-      DEFAULT: 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.png'
+      DEFAULT: 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.webp'
     },
     BANNER: {
-      CLIENT: 'https://kr.object.ncloudstorage.com/web22/static/client_banner.png'
+      CLIENT: 'https://kr.object.ncloudstorage.com/web22/static/client_banner.webp'
     }
   }
 } as const;

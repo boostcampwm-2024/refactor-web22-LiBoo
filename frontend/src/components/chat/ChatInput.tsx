@@ -6,24 +6,19 @@ import SendIcon from '@assets/icons/send.svg';
 import { useRef, useEffect, useState, KeyboardEvent, memo } from 'react';
 import { CHATTING_SOCKET_SEND_EVENT, CHATTING_TYPES } from '@constants/chat';
 import { ChattingSendTypes } from '@type/chat';
-import { getStoredId } from '@utils/id';
-import { UserType } from '@type/user';
-
-interface ChatInputProps {
-  worker: MessagePort | null;
-  userType: UserType;
-  roomId: string;
-}
+import { useChatWorkerContext } from '@contexts/ChatWorkerContext';
+import { useChatSessionContext } from '@contexts/ChatSessionContext';
 
 const INITIAL_TEXTAREA_HEIGHT = 20;
 
-const ChatInput = ({ worker, userType, roomId }: ChatInputProps) => {
+const ChatInput = () => {
+  const { sendMessage } = useChatWorkerContext();
+  const { userType, roomId, userId } = useChatSessionContext();
+
   const [hasInput, setHasInput] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [msgType, setMsgType] = useState<ChattingSendTypes>(CHATTING_TYPES.NORMAL);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const userId = getStoredId();
 
   const handleMsgType = () => {
     if (!userType) return;
@@ -37,7 +32,9 @@ const ChatInput = ({ worker, userType, roomId }: ChatInputProps) => {
   };
 
   const handleMessageSend = () => {
-    if (!worker || !textareaRef.current || !textareaRef.current.value.trim()) return;
+    if (!textareaRef.current || !textareaRef.current.value.trim()) {
+      return;
+    }
 
     const message = textareaRef.current.value.trim();
     const eventMap = {
@@ -48,13 +45,10 @@ const ChatInput = ({ worker, userType, roomId }: ChatInputProps) => {
 
     const eventName = eventMap[msgType];
 
-    worker.postMessage({
-      type: eventName,
-      payload: {
-        roomId,
-        userId,
-        msg: message
-      }
+    sendMessage(eventName, {
+      roomId,
+      userId,
+      msg: message
     });
 
     resetTextareaHeight();
@@ -88,7 +82,7 @@ const ChatInput = ({ worker, userType, roomId }: ChatInputProps) => {
       if (textarea) {
         requestAnimationFrame(() => {
           textarea.style.height = `${INITIAL_TEXTAREA_HEIGHT}px`;
-          textarea.style.height = `${textarea.scrollHeight - 5}px`;
+          textarea.style.height = `${textarea.scrollHeight}px`;
         });
       }
     };
@@ -185,7 +179,7 @@ const ChatInputWrapper = styled.div<{ $hasInput: boolean; $isFocused: boolean }>
 
 const ChatInputArea = styled.textarea`
   width: 100%;
-  min-height: 20px;
+  min-height: 25px;
   max-height: 40px;
   scrollbar-width: none;
   resize: none;
@@ -195,7 +189,7 @@ const ChatInputArea = styled.textarea`
   ${({ theme }) => theme.tokenTypographys['display-medium16']};
   background-color: transparent;
   white-space: normal;
-  line-height: 23px;
+  padding: 0px 0px;
 `;
 
 const InputBtn = styled.button`
