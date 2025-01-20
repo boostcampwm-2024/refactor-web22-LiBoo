@@ -1,12 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 import { ASSETS } from '@constants/assets';
 
 const BoostBanner = () => {
   return (
     <BannerLink href="https://boostcamp.connect.or.kr/" target="_blank" rel="noopener noreferrer">
-    <Banner src={ASSETS.IMAGES.BANNER.CLIENT} alt="Client Banner" />
-  </BannerLink>
+      <Banner src={ASSETS.IMAGES.BANNER.CLIENT} alt="Client Banner" />
+    </BannerLink>
   );
 };
 
