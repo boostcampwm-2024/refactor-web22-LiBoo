@@ -44,7 +44,7 @@ const LiveVideoCard = ({ videoData }: LiveVideoCardProps) => {
           <video ref={videoRef} muted playsInline preload="none" />
         </VideoBox>
         <VideoCardThumbnail $isVideoVisible={isHovered && isVideoLoaded}>
-          <VideoCardImage src={liveImageUrl ?? defaultThumbnailImageUrl} onError={handleError}/>
+          <VideoCardImage src={liveImageUrl ?? defaultThumbnailImageUrl} alt={'live_thumnail'} onError={handleError} />
         </VideoCardThumbnail>
         <VideoCardDescription>
           <LiveBadge />

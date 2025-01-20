@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import WarningIcon from '@assets/icons/warning_icon.svg';
 
@@ -8,6 +9,11 @@ const ErrorPage = () => {
 
   return (
     <ErrorContainer>
+      <Helmet>
+        <meta name="description" content="에러 페이지로, 잘못된 주소로 접근시에 제공되는 페이지입니다." />
+        <title>에러 페이지</title>
+      </Helmet>
+
       <WarningIconStyled />
       <ErrorMainText>존재하지 않는 방송입니다.</ErrorMainText>
       <ErrorSubText>지금 입력하신 주소의 페이지는 사라졌거나 다른 페이지로 변경되었습니다.</ErrorSubText>

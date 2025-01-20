@@ -34,13 +34,13 @@ export class ReplayVideoDto {
 
   @ApiProperty({
     description: '썸네일 이미지 URL',
-    example: 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.png',
+    example: 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.webp',
   })
     thumbnailImageUrl: string = '';
 
   @ApiProperty({
     description: '트레일러 방송 URL',
-    example: 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.png',
+    example: 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.webp',
     required: false,
   })
     trailerUrl?: string = '';

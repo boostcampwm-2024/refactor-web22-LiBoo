@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /user/
+Allow: /public/
+Allow: /images/
+Allow: /assets/
+
+Sitemap: https://liboo.kr/sitemap.xml

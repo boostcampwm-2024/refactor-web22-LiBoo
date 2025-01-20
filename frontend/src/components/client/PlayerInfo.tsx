@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ElapsedTime from './ElapsedTime';
 import sampleProfile from '@assets/sample_profile.png';
 import ShowInfoBadge from '@common/ShowInfoBadge';
-import { ASSETS } from '@constants/assets';
+import BoostBanner from '@components/common/BoostBanner';
 import { ClientLive } from '@type/live';
 
 const PlayerInfo = ({ clientLiveData }: { clientLiveData: ClientLive }) => {
@@ -34,9 +34,7 @@ const PlayerInfo = ({ clientLiveData }: { clientLiveData: ClientLive }) => {
           </LiveInfo>
         </VideoInfo>
       </PlayerInfoBox>
-      <BannerLink href="https://boostcamp.connect.or.kr/" target="_blank" rel="noopener noreferrer">
-        <Banner src={ASSETS.IMAGES.BANNER.CLIENT} alt="Client Banner" />
-      </BannerLink>
+      <BoostBanner />
     </PlayerInfoContainer>
   );
 };
@@ -134,23 +132,4 @@ const LiveInfo = styled.div`
   gap: 8px;
   color: ${({ theme }) => theme.tokenColors['text-bold']};
   ${({ theme }) => theme.tokenTypographys['display-bold12']};
-`;
-
-const BannerLink = styled.a`
-  display: block;
-  margin-top: 24px;
-  border-radius: 7px;
-  overflow: hidden;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-
-const Banner = styled.img`
-  width: 100%;
-  aspect-ratio: 16 / 2;
-  object-fit: cover;
-  display: block;
 `;
