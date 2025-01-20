@@ -30,7 +30,7 @@ const ReplayVideoCard = ({ videoData }: ReplayVideoCardProps) => {
           <video ref={videoRef} muted playsInline />
         </VideoBox>
         <VideoCardThumbnail $isVideoVisible={isHovered && isVideoLoaded}>
-          <VideoCardImage src={thumbnailImageUrl} />
+          <VideoCardImage src={thumbnailImageUrl} alt='replay_thumnail'/>
         </VideoCardThumbnail>
         <VideoCardDescription>
           <ReplayBadge />

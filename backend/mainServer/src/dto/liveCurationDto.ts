@@ -7,7 +7,7 @@ export class LiveCurationDto {
   liveId: string = '';
   liveTitle: string = '';
   liveImageUrl: string = '';
-  defaultThumbnailImageUrl: string = 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.png';
+  defaultThumbnailImageUrl: string = 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.webp';
   concurrentUserCount: number = 0;
   channel: ChannelDto = {
     channelId : '',
@@ -23,7 +23,7 @@ export function fromLiveCurationDto(memoryDbDto: MemoryDbDto): LiveCurationDto {
     sessionKey,
     liveTitle,
     liveImageUrl,
-    defaultThumbnailImageUrl = 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.png',
+    defaultThumbnailImageUrl = 'https://kr.object.ncloudstorage.com/web22/static/liboo_default_thumbnail.webp',
     concurrentUserCount,
     channel,
     category,
