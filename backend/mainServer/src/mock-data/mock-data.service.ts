@@ -12,7 +12,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session001',
       liveTitle: 'Tech Conference 2024',
       category: 'Technology',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test1_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test1_thumbnail.webp',
       tags: ['Conference', 'Tech', '2024'],
       startDate: new Date('2024-11-21T09:00:00'),
       endDate: new Date('2024-11-21T11:00:00'),
@@ -29,7 +29,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session002',
       liveTitle: 'DAN24',
       category: 'Art',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test2_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test2_thumbnail.webp',
       tags: ['Dan', 'Showcase', 'Art'],
       startDate: new Date('2024-11-21T12:00:00'),
       endDate: new Date('2024-11-21T14:00:00'),
@@ -46,7 +46,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session003',
       liveTitle: 'Gaming Tournament Finals',
       category: 'Gaming',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test3_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test3_thumbnail.webp',
       tags: ['Gaming', 'Esports', 'Finals'],
       startDate: new Date('2024-11-21T15:00:00'),
       endDate: new Date('2024-11-21T18:00:00'),
@@ -63,7 +63,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session004',
       liveTitle: 'Music Live Show',
       category: 'Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test4_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test4_thumbnail.webp',
       tags: ['Music', 'Live', 'Concert'],
       startDate: new Date('2024-11-21T19:00:00'),
       endDate: new Date('2024-11-21T21:00:00'),
@@ -80,7 +80,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session005',
       liveTitle: 'Cooking with Pros',
       category: 'Food',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test5_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test5_thumbnail.webp',
       tags: ['Cooking', 'Food', 'Recipes'],
       startDate: new Date('2024-11-22T12:00:00'),
       endDate: new Date('2024-11-22T14:00:00'),
@@ -97,7 +97,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session006',
       liveTitle: 'Tech Conference 2024',
       category: 'Technology',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test6_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test6_thumbnail.webp',
       tags: ['Tech', 'Conference', 'Innovation'],
       startDate: new Date('2024-11-22T15:00:00'),
       endDate: new Date('2024-11-22T18:00:00'),
@@ -114,7 +114,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session007',
       liveTitle: 'Art Masterclass',
       category: 'Art',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test7_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test7_thumbnail.webp',
       tags: ['Art', 'Painting', 'Creative'],
       startDate: new Date('2024-11-23T10:00:00'),
       endDate: new Date('2024-11-23T12:00:00'),
@@ -131,7 +131,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session008',
       liveTitle: 'Fitness Live Session',
       category: 'Health',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test8_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test8_thumbnail.webp',
       tags: ['Fitness', 'Health', 'Workout'],
       startDate: new Date('2024-11-23T16:00:00'),
       endDate: new Date('2024-11-23T17:00:00'),
@@ -148,7 +148,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'session009',
       liveTitle: 'Travel Vlog Live',
       category: 'Travel',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test9_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test9_thumbnail.webp',
       tags: ['Travel', 'Adventure', 'Vlog'],
       startDate: new Date('2024-11-24T09:00:00'),
       endDate: new Date('2024-11-24T11:00:00'),
@@ -165,7 +165,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session',
       liveTitle: 'Replay Title',
       category: 'Replay Category',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test10_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/test10_thumbnail.webp',
       tags: ['replay', '다시보기'],
       startDate: new Date(Date.now() - 60 * 60 * 1000), // 1 hour ago
       endDate: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
@@ -178,7 +178,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session001',
       liveTitle: 'Replay Tech Conference 2024',
       category: 'Replay Technology',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test1_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test1_thumbnail.webp',
       tags: ['Replay', 'Conference', 'Tech'],
       startDate: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
       endDate: new Date(Date.now() - 90 * 60 * 1000), // 90 minutes ago
@@ -192,7 +192,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session002',
       liveTitle: 'Replay DAN24',
       category: 'Replay Art',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test2_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test2_thumbnail.webp',
       tags: ['Replay', 'Dan', 'Art'],
       startDate: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
       endDate: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
@@ -206,7 +206,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session003',
       liveTitle: 'Replay Gaming Tournament Finals',
       category: 'Replay Gaming',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test3_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test3_thumbnail.webp',
       tags: ['Replay', 'Gaming', 'Esports'],
       startDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
       endDate: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
@@ -220,7 +220,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session004',
       liveTitle: 'Replay Music Showcase',
       category: 'Replay Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test4_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test4_thumbnail.webp',
       tags: ['Replay', 'Music', 'Showcase'],
       startDate: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       endDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
@@ -234,7 +234,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session005',
       liveTitle: 'Replay Music Showcase',
       category: 'Replay Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test5_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test5_thumbnail.webp',
       tags: ['Replay', 'Music', 'Showcase'],
       startDate: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       endDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
@@ -248,7 +248,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session006',
       liveTitle: 'Replay Music Showcase',
       category: 'Replay Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test6_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test6_thumbnail.webp',
       tags: ['Replay', 'Music', 'Showcase'],
       startDate: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       endDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
@@ -262,7 +262,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session007',
       liveTitle: 'Replay Music Showcase',
       category: 'Replay Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test7_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test7_thumbnail.webp',
       tags: ['Replay', 'Music', 'Showcase'],
       startDate: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       endDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
@@ -276,7 +276,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session008',
       liveTitle: 'Replay Music Showcase',
       category: 'Replay Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test8_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test8_thumbnail.webp',
       tags: ['Replay', 'Music', 'Showcase'],
       startDate: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       endDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
@@ -290,7 +290,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session009',
       liveTitle: 'Replay Music Showcase',
       category: 'Replay Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test9_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test9_thumbnail.webp',
       tags: ['Replay', 'Music', 'Showcase'],
       startDate: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       endDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
@@ -304,7 +304,7 @@ export class MockDataService implements OnModuleInit {
       liveId: 'replay_session010',
       liveTitle: 'Replay Music Showcase',
       category: 'Replay Music',
-      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test10_thumbnail.png',
+      defaultThumbnailImageUrl: 'https://kr.object.ncloudstorage.com/web22/static/replay_test10_thumbnail.webp',
       tags: ['Replay', 'Music', 'Showcase'],
       startDate: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
       endDate: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
